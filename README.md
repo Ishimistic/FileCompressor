@@ -49,7 +49,8 @@ arduino
 Copy code
 File compressed successfully to: example.txt.huff
 
-Real-World Applications:
+
+**Real-World Applications:**
 Data Storage: Compress large text files to save disk space (e.g., logs, documents).
 Data Transmission: Reduce data size for faster transmission in networks.
 Text & Document Compression: Save space for documents, books, and legal papers.
