@@ -6,22 +6,30 @@
 #include <fstream>
 #include <unordered_map>
 #include <string>
+#include <vector>
 #include <bitset>
 
 using namespace std;
 
 bool compressFile(const string &inputFilePath) {
-    ifstream inputFile(inputFilePath);
+    ifstream inputFile(inputFilePath,  ios::binary);
     if (!inputFile.is_open()) {
         cerr << "Could not open file: " << inputFilePath << endl;
         return false;
     }
 
-    // Count character frequencies
-    unordered_map<char, int> freqMap;
+    // Read entire file into buffer
+    vector<char> buffer((istreambuf_iterator<char>(inputFile)), istreambuf_iterator<char>());
+    if (buffer.empty()) {
+         cerr << "File is empty: " << inputFilePath << endl;
+         return false;
+     }
+
+    // Count byte frequencies
+    unordered_map<unsigned char, int> freqMap;
     char ch;
-    while (inputFile.get(ch)) {
-        freqMap[ch]++;
+    for (unsigned char byte : buffer) {
+        freqMap[byte]++;
     }
 
     if (freqMap.empty()) {
@@ -37,7 +45,7 @@ bool compressFile(const string &inputFilePath) {
     }
 
     // Generate Huffman codes
-    unordered_map<char, string> huffmanCodes;
+    unordered_map<unsigned char, string> huffmanCodes;
     generateCode(root, "", huffmanCodes);
 
     // Prepare output file
@@ -51,17 +59,23 @@ bool compressFile(const string &inputFilePath) {
         return false;
     }
 
-    // Write frequency map size to the compressed file
+     // Save original file extension
+     string extension = inputFilePath.substr(inputFilePath.find_last_of('.'));
+     int extLength = extension.size();
+     outputFile.write(reinterpret_cast<const char*>(&extLength), sizeof(extLength));
+     outputFile.write(extension.c_str(), extLength);
+ 
+
+    // Write frequency map
     int mapSize = freqMap.size();
     outputFile.write(reinterpret_cast<const char*>(&mapSize), sizeof(mapSize));
-    
-    // Write frequency map entries
+
     for (const auto& pair : freqMap) {
-        outputFile.write(&pair.first, sizeof(pair.first));
+        unsigned char byte = static_cast<unsigned char>(pair.first);
+        outputFile.write(reinterpret_cast<const char*>(&byte), sizeof(byte));
         outputFile.write(reinterpret_cast<const char*>(&pair.second), sizeof(pair.second));
     }
-
-
+    
 
     // Reset input file to beginning
     inputFile.clear();
@@ -69,23 +83,22 @@ bool compressFile(const string &inputFilePath) {
 
     // Encode the file
     string encodedString;
-    while (inputFile.get(ch)) {
-        encodedString += huffmanCodes[ch];
+    for (unsigned char byte : buffer) {
+        encodedString += huffmanCodes[byte];
     }
 
     // Pad the encoded string to ensure full bytes
     int padding = 8 - (encodedString.length() % 8);
+    encodedString.append(padding, '0');
 
     // Write padding information
     outputFile.write(reinterpret_cast<const char*>(&padding), sizeof(padding));
     
-    encodedString += string(padding, '0');
-
     // Write binary data
     for (size_t i = 0; i < encodedString.length(); i += 8) {
         bitset<8> bits(encodedString.substr(i, 8));
         char byte = static_cast<char>(bits.to_ulong());
-        outputFile.write(&byte, 1);
+        outputFile.write(&byte, sizeof(byte));
     }
 
     cout << "File compressed successfully to: " << outputFilePath << endl;

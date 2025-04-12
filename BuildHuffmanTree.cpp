@@ -4,7 +4,7 @@
 
 using namespace std;
 
-MinHeapNode* buildHuffmanTree(unordered_map<char, int> &freqMap) {
+MinHeapNode* buildHuffmanTree(unordered_map<unsigned char, int> &freqMap) {
     priority_queue<MinHeapNode*, vector<MinHeapNode*>, Compare> minHeap;
 
     for (const auto& pair : freqMap) {

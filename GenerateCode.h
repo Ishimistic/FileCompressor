@@ -7,6 +7,6 @@
 
 using namespace std;
 
-void generateCode(MinHeapNode* root, string code, unordered_map<char, string>& huffmanCodes);
+void generateCode(MinHeapNode* root, string code, unordered_map<unsigned char, string>& huffmanCodes);
 
 #endif
