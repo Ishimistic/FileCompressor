@@ -16,12 +16,12 @@ To deploy this project run
 
 1. Compile the code.
 ```bash
- g++ -o compress compress.cpp
+ g++ mainCompressFile.cpp BuildHuffmanTree.cpp CompressFile.cpp DecompressFile.cpp GenerateCode.cpp -o huffman
 ```
 
 2. Run the program
 ```bash
-./compress
+./huffman
 ```
 
 3. Enter the file path
