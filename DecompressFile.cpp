@@ -117,7 +117,7 @@ bool decompressFile(const string& inputFilePath) {
         return false;
     }
     
-    outputFile.write(decodedString.c_str(), decodedString.length());
+    outputFile.write(decodedString.data(), decodedString.length());
 
     cout << "File decompressed successfully to: " << outputFilePath << endl;
 
