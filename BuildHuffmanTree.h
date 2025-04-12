@@ -6,7 +6,7 @@
 
 using namespace std;
 
-MinHeapNode* buildHuffmanTree(unordered_map<char, int>& freqMap);
+MinHeapNode* buildHuffmanTree(unordered_map<unsigned char, int>& freqMap);
 
 
 // To clean up the tree memory

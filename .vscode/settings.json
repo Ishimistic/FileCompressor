@@ -3,6 +3,8 @@
         "vector": "cpp",
         "unordered_map": "cpp",
         "xiosbase": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "xstring": "cpp",
+        "xhash": "cpp"
     }
 }
