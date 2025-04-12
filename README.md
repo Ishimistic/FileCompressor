@@ -104,4 +104,4 @@ Implement lossless and lossy image compression using Huffman coding for efficien
 Extend the algorithm to handle both text and images, compressing multi-format files like scanned documents.
 
 - **Compression for Other File Types:**
-Adapt the algorithm to compress PDFs, audio, and video files for more versatile usage.
+Adapt the algorithm to compress audio, and video files for more versatile usage.
