@@ -150,7 +150,6 @@ bool decompressFile(const string &inputFilePath)
 
     outputFile.write(reinterpret_cast<const char*>(decodedBytes.data()), decodedBytes.size());
 
-
     cout << "File decompressed successfully to: " << outputFilePath << endl;
 
     inputFile.close();
