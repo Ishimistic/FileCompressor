@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "vector": "cpp"
+        "vector": "cpp",
+        "unordered_map": "cpp",
+        "xiosbase": "cpp",
+        "fstream": "cpp"
     }
 }

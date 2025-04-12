@@ -3,21 +3,18 @@
 
 #include <iostream>
 
-// Huffman Tree node
 class MinHeapNode {
 public:
     char data;         
     int freq;  
     MinHeapNode *left, *right;
 
-    MinHeapNode(char data, int freq){
-        this -> data = data;
-        this -> freq = freq;
-        this -> left = NULL;
-        this -> right = NULL;
-    };
+    MinHeapNode(char data, int freq) {
+        this->data = data;
+        this->freq = freq;
+        this->left = nullptr;
+        this->right = nullptr;
+    }
 };
-
-
 
 #endif 

@@ -1,18 +1,10 @@
-#include <iostream>
+#include "BuildHuffmanTree.h"
 #include <queue>
-#include <unordered_map>
-#include "MinHeapNode.h"
+#include "Compare.h"
 
 using namespace std;
 
-class Compare {
-public:
-    bool operator()(MinHeapNode* left, MinHeapNode* right) {
-        return left->freq > right->freq;
-    }
-};
-
-MinHeapNode* buildHuffmanTree(const unordered_map<char, int>& freqMap) {
+MinHeapNode* buildHuffmanTree(unordered_map<char, int> &freqMap) {
     priority_queue<MinHeapNode*, vector<MinHeapNode*>, Compare> minHeap;
 
     for (const auto& pair : freqMap) {
@@ -32,5 +24,14 @@ MinHeapNode* buildHuffmanTree(const unordered_map<char, int>& freqMap) {
         minHeap.push(newNode);
     }
 
-    return minHeap.top();
+    return minHeap.empty() ? nullptr : minHeap.top();
+}
+
+void destroyHuffmanTree(MinHeapNode* root) {
+    if (root == nullptr) return;
+    
+    destroyHuffmanTree(root->left);
+    destroyHuffmanTree(root->right);
+    
+    delete root;
 }
