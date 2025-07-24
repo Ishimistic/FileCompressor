@@ -1,14 +1,13 @@
 # FileCompressor
 
-A high-performance C++ file compression utility implementing Huffman coding to significantly reduce file sizes while preserving original content integrity. This utility supports multiple file formats including text, PDF, and Word documents with impressive compression rates.
+A high-performance C++ file compression utility implementing Huffman coding to significantly reduce file sizes while preserving original content integrity. This utility supports multiple file formats including text, CSV files with impressive compression rates.
 
 ## Compression Performance
 
 | File Type        | Compression Rate |
 |------------------|------------------|
 | Text Files       | 38.2%            |
-| PDF Documents    | Up to 99%        |
-| Word Documents   | 96%              |
+| CSV Files        | Up to 42.4%      |
 
 ## Key Features
 
